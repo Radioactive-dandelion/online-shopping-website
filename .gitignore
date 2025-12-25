@@ -1,0 +1,56 @@
+# ========================
+# Node.js
+# ========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========================
+# Environment variables
+# ========================
+.env
+.env.local
+.env.development
+.env.production
+
+# ========================
+# Build artifacts
+# ========================
+dist/
+build/
+
+# ========================
+# Vite / React
+# ========================
+frontend/dist/
+frontend/.vite/
+
+# ========================
+# Docker
+# ========================
+*.log
+
+# ========================
+# Uploads / runtime data
+# ========================
+uploads/
+
+# ========================
+# OS / Editor
+# ========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ========================
+# Python (dataset scripts)
+# ========================
+__pycache__/
+*.pyc
+
+# ========================
+# (ВАЖНО) если фронтенд раньше был внутри user-service
+# ========================
+user-service/frontend/
