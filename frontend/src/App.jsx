@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import axios from "./api/axios"
 
 
-import Home from './Home'
-import Register from './Register'
-import Login from './Login'
-import Profile from './Profile'   
+import Home from './pages/Home'
+import Register from './pages/auth/Register'
+import Login from './pages/auth/Login'
+import Profile from './pages/user/Profile'   
 
 export const AuthContext = createContext()
 

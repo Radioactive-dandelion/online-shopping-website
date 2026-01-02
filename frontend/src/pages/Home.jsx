@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "./api/axios";
-import "./App.css";
+import axios from "../api/axios";
 
 function Home() {
   const [auth, setAuth] = useState(false);
@@ -30,7 +29,7 @@ function Home() {
     checkAuth();
   }, []);
 
-  // Эффект для автоматического скрытия сообщения через 5 секунды
+
   useEffect(() => {
     if (!loading) {
       const timer = setTimeout(() => {
