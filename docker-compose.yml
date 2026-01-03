@@ -1,0 +1,105 @@
+version: "3.9"
+
+services:
+  # ======================
+  # USER SERVICE
+  # ======================
+  user-mysql:
+    image: mysql:8
+    container_name: user-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: signup
+    ports:
+      - "3306:3306"
+    volumes:
+      - user_mysql_data:/var/lib/mysql
+    networks:
+      - ecommerce-network
+
+  user-backend:
+    build: ./user-service/server
+    container_name: user-backend
+    restart: always
+    ports:
+      - "8081:8081"
+    env_file:
+      - ./user-service/server/.env
+    volumes:
+      - ./user-service/server/uploads:/app/uploads
+    depends_on:
+      - user-mysql
+    networks:
+      - ecommerce-network
+
+  # ======================
+  # PRODUCT SERVICE
+  # ======================
+  product-db:
+    image: postgres:16
+    container_name: product-db
+    environment:
+      POSTGRES_USER: product_user
+      POSTGRES_PASSWORD: product_password
+      POSTGRES_DB: product_db
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U product_user"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ecommerce-network
+
+  product-elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.0
+    container_name: product-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+    networks:
+      - ecommerce-network
+
+  product-backend:
+    build: ./product-service/server
+    container_name: product-backend
+    depends_on:
+      product-db:
+        condition: service_healthy
+      product-elasticsearch:
+        condition: service_started
+    environment:
+      DATABASE_URL: postgresql+psycopg2://product_user:product_password@product-db:5432/product_db
+      ELASTICSEARCH_URL: http://product-elasticsearch:9200
+    ports:
+      - "8000:8000"
+    networks:
+      - ecommerce-network
+
+  # ======================
+  # FRONTEND (COMMON)
+  # ======================
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    depends_on:
+      - user-backend
+      - product-backend
+    networks:
+      - ecommerce-network
+
+networks:
+  ecommerce-network:
+    driver: bridge
+
+volumes:
+  user_mysql_data:
+
