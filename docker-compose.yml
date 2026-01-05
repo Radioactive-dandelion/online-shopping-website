@@ -22,14 +22,14 @@ services:
     build: ./user-service/server
     container_name: user-backend
     restart: always
-    ports:
-      - "8081:8081"
     env_file:
       - ./user-service/server/.env
     volumes:
       - ./user-service/server/uploads:/app/uploads
     depends_on:
       - user-mysql
+    expose:
+      - "8081"
     networks:
       - ecommerce-network
 
@@ -76,13 +76,28 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg2://product_user:product_password@product-db:5432/product_db
       ELASTICSEARCH_URL: http://product-elasticsearch:9200
-    ports:
-      - "8000:8000"
+    expose:
+      - "8000"
     networks:
       - ecommerce-network
 
   # ======================
-  # FRONTEND (COMMON)
+  # API GATEWAY
+  # ======================
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - user-backend
+      - product-backend
+    networks:
+      - ecommerce-network
+
+  # ======================
+  # FRONTEND
   # ======================
   frontend:
     build: ./frontend
@@ -91,8 +106,7 @@ services:
     ports:
       - "5173:5173"
     depends_on:
-      - user-backend
-      - product-backend
+      - api-gateway
     networks:
       - ecommerce-network
 
@@ -102,4 +116,3 @@ networks:
 
 volumes:
   user_mysql_data:
-

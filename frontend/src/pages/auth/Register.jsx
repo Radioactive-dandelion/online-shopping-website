@@ -23,7 +23,7 @@ function Register() {
 
     try {
       setLoading(true)
-      const res = await axios.post('http://localhost:8081/register', values, {
+      const res = await axios.post("/auth/register", values, {
         headers: { 'Content-Type': 'application/json' }
       })
 

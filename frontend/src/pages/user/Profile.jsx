@@ -287,7 +287,7 @@ function Profile() {
               </form>
             </div>
           </div>
-          {/* Настройки */}
+          {/* Settings */}
           <div className="profile-card">
             <h6>Settings</h6>
 
@@ -305,7 +305,7 @@ function Profile() {
                 <label className="form-check-label" htmlFor="prefTheme">Dark theme</label>
               </div>
 
-              {/* Язык */}
+              {/* Language */}
               <div className="mb-3">
                 <label className="form-label">Language</label>
                 <select
@@ -319,7 +319,7 @@ function Profile() {
                 </select>
               </div>
 
-              {/* Валюта */}
+              {/* Currency */}
               <div className="mb-3">
                 <label className="form-label">Currency</label>
                 <select
@@ -336,7 +336,7 @@ function Profile() {
                 </select>
               </div>
 
-              {/* Уведомления */}
+              {/* Notifications */}
               <div className="form-check mb-4">
                 <input
                   className="form-check-input"
@@ -358,9 +358,9 @@ function Profile() {
           </div>
         </div>
 
-        {/* Правая колонка */}
+        {/* Right column */}
         <div>
-          {/* Информация профиля */}
+          {/* Profile information */}
           <div className="profile-card">
             <form onSubmit={handleSaveProfile} className="profile-form">
               <div className="mb-3">
@@ -410,7 +410,7 @@ function Profile() {
             </form>
           </div>
 
-          {/* Смена пароля */}
+          {/* Change password */}
           <div className="profile-card">
             <h6>Change Password</h6>
             

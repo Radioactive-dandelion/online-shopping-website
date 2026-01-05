@@ -20,7 +20,7 @@ function Login() {
     setError('')
     setLoading(true)
 
-    // Базовая валидация
+    // basic validation
     if (!values.email || !values.password) {
       setError('Please fill in all fields')
       setLoading(false)
@@ -28,7 +28,7 @@ function Login() {
     }
 
     try {
-      const res = await axios.post('http://localhost:8081/login', values)
+      const res = await axios.post("/auth/login", values);
       
       if (res.data.status === "Success") {   
         navigate('/')
