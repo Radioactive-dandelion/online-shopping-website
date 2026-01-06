@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Profile from "./pages/user/Profile";
-import ProductDetails from "./pages/product/ProductPage";
+import ProductDetails from "./pages/products/ProductPage";
 
 export const AuthContext = createContext();
 
@@ -57,7 +57,7 @@ function App() {
         <Routes>
           {/* Product */}
           <Route path="/" element={<Home />} />
-          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/products/:id" element={<ProductPage />} />
 
           {/* Auth */}
           <Route path="/login" element={<Login />} />
