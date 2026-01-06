@@ -343,3 +343,17 @@ export default app;
 if (process.env.NODE_ENV !== "test") {
   app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 }
+
+function connectWithRetry() {
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.log("DB not ready, retrying in 3s...");
+      setTimeout(connectWithRetry, 3000);
+    } else {
+      console.log("✅ Connected to MySQL");
+      connection.release();
+    }
+  });
+}
+
+connectWithRetry();
