@@ -1,0 +1,76 @@
+############################################
+# General / OS
+############################################
+.DS_Store
+Thumbs.db
+*.log
+
+############################################
+# IDEs / Editors
+############################################
+.idea/
+*.iml
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+############################################
+# Node / Frontend (Vite / React)
+############################################
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.vite-temp/
+frontend/npm-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+
+############################################
+# Java / Maven (order-service)
+############################################
+order-service/target/
+order-service/.classpath
+order-service/.project
+order-service/.settings/
+
+############################################
+# Python / FastAPI (product-service)
+############################################
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.venv
+venv/
+
+############################################
+# Python test / cache artifacts
+############################################
+.pytest_cache/
+.coverage
+htmlcov/
+
+############################################
+# Docker
+############################################
+docker-compose.override.yml
+
+############################################
+# Build / Runtime artifacts
+############################################
+*.jar
+*.war
+*.zip
+*.tar.gz
+
+############################################
+# Temporary files
+############################################
+tmp/
+temp/
+.cache/

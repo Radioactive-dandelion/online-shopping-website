@@ -1,0 +1,88 @@
+
+        total_amount decimal(10,2) not null,
+
+        updated_at datetime(6),
+
+        user_email varchar(255) not null,
+
+        user_id bigint not null,
+
+        user_name varchar(255),
+
+        primary key (id)
+
+    ) engine=InnoDB
+
+Hibernate: 
+
+    create table orders (
+
+        id bigint not null auto_increment,
+
+        billing_address varchar(500),
+
+        completed_at datetime(6),
+
+        created_at datetime(6) not null,
+
+        order_status enum ('PENDING','PROCESSING','SHIPPED','DELIVERED','CANCELLED') not null,
+
+        payment_method varchar(255),
+
+        payment_status enum ('PENDING','PAID','FAILED','REFUNDED') not null,
+
+        shipping_address varchar(500),
+
+        stripe_payment_id varchar(255),
+
+        total_amount decimal(10,2) not null,
+
+        updated_at datetime(6),
+
+        user_email varchar(255) not null,
+
+        user_id bigint not null,
+
+        user_name varchar(255),
+
+        primary key (id)
+
+    ) engine=InnoDB
+
+2026-01-04T21:33:54.148Z DEBUG 1 --- [order-service] [           main] org.hibernate.SQL                        : 
+
+    alter table order_items 
+
+       add constraint FKbioxgbv59vetrxe0ejfubep1w 
+
+       foreign key (order_id) 
+
+       references orders (id)
+
+Hibernate: 
+
+    alter table order_items 
+
+       add constraint FKbioxgbv59vetrxe0ejfubep1w 
+
+       foreign key (order_id) 
+
+       references orders (id)
+
+2026-01-04T21:33:54.338Z  INFO 1 --- [order-service] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+
+2026-01-04T21:33:55.222Z  INFO 1 --- [order-service] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+
+2026-01-04T21:33:56.110Z  WARN 1 --- [order-service] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+
+2026-01-04T21:33:57.874Z  INFO 1 --- [order-service] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+
+2026-01-04T21:33:58.084Z  INFO 1 --- [order-service] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8082 (http) with context path ''
+
+2026-01-04T21:33:58.130Z  INFO 1 --- [order-service] [           main] c.e.o.OrderServiceApplication            : Started OrderServiceApplication in 14.164 seconds (process running for 15.095)
+
+2026-01-04T21:33:58.445Z  INFO 1 --- [order-service] [nio-8082-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+
+2026-01-04T21:33:58.446Z  INFO 1 --- [order-service] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+
+2026-01-04T21:33:58.454Z  INFO 1 --- [order-service] [nio-8082-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
