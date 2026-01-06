@@ -28,7 +28,7 @@ app.use(cors({
 const pool = mysql.createPool({
   host: process.env.DB_HOST || "user-mysql", 
   user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "",
+  password: process.env.DB_PASSWORD || "password",
   database: process.env.DB_NAME || "signup",
   port: 3306,
   connectionLimit: 10,
@@ -39,17 +39,6 @@ const pool = mysql.createPool({
   keepAliveInitialDelay: 0
 });
 
-
-
-// Check connection
-pool.getConnection((err, connection) => {
-  if (err) {
-    console.error("DB connection error:", err);
-  } else {
-    console.log("Connected to MySQL database via pool");
-    connection.release();
-  }
-});
 
 // Pool error handler
 pool.on('error', (err) => {
