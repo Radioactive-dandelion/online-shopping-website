@@ -71,8 +71,8 @@ services:
         condition: service_healthy
       product-elasticsearch:
         condition: service_started
-    environment:
-      DATABASE_URL: postgresql+psycopg2://product_user:product_password@product-db:5432/product_db
+      environment:
+      DATABASE_URL: postgresql://product_user:product_password@product-db:5432/product_db
       ELASTICSEARCH_URL: http://product-elasticsearch:9200
     expose:
       - "8000"
