@@ -26,10 +26,11 @@ app.use(cors({
 
 // ====== MySQL connection pool ======
 const pool = mysql.createPool({
-  host: process.env.DB_HOST || "localhost",
+  host: process.env.DB_HOST || "user-mysql", 
   user: process.env.DB_USER || "root",
   password: process.env.DB_PASSWORD || "",
   database: process.env.DB_NAME || "signup",
+  port: 3306,
   connectionLimit: 10,
   acquireTimeout: 10000,
   waitForConnections: true,
@@ -37,6 +38,7 @@ const pool = mysql.createPool({
   enableKeepAlive: true,
   keepAliveInitialDelay: 0
 });
+
 
 
 // Check connection
