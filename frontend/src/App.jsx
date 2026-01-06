@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Profile from "./pages/user/Profile";
-import ProductDetails from "./pages/products/ProductPage";
+import ProductPage from "./pages/products/ProductPage";
 
 export const AuthContext = createContext();
 
