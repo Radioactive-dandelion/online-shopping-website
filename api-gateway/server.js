@@ -5,7 +5,7 @@ import { createProxyMiddleware } from "http-proxy-middleware";
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: true,
   credentials: true
 }));
 
@@ -16,7 +16,15 @@ app.use(express.json());
  * http://localhost:8081
  */
 app.use(
-  "/api/users",
+  "/auth",
+  createProxyMiddleware({
+    target: "http://user-backend:8081",
+    changeOrigin: true
+  })
+);
+
+app.use(
+  "/user", // проксируем все запросы /user/* на user-backend
   createProxyMiddleware({
     target: "http://user-backend:8081",
     changeOrigin: true
@@ -28,7 +36,7 @@ app.use(
  * http://localhost:8000
  */
 app.use(
-  "/api/products",
+  "/products",
   createProxyMiddleware({
     target: "http://product-service:8000",
     changeOrigin: true

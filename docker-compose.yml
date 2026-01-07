@@ -1,3 +1,5 @@
+
+
 services:
   # ======================
   # USER SERVICE
@@ -5,7 +7,7 @@ services:
   user-mysql:
     image: mysql:8
     container_name: user-mysql
-    restart: always
+    restart: "always"
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: signup
@@ -15,17 +17,19 @@ services:
       - ecommerce-network
 
   user-backend:
-    build: ./user-service/server
+    build:
+      context: ./user-service/server
+      dockerfile: Dockerfile
     container_name: user-backend
-    restart: always
+    restart: "always"
     env_file:
       - ./user-service/server/.env
     volumes:
       - ./user-service/server/uploads:/app/uploads
     depends_on:
       - user-mysql
-    expose:
-      - "8081"
+    ports:
+      - "8081:8081"
     networks:
       - ecommerce-network
 
@@ -62,7 +66,9 @@ services:
       - ecommerce-network
 
   product-backend:
-    build: ./product-service
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
     container_name: product-backend
     depends_on:
       product-db:
@@ -72,8 +78,8 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg2://product_user:product_password@product-db:5432/product_db
       ELASTICSEARCH_URL: http://product-elasticsearch:9200
-    expose:
-      - "8000"
+    ports:
+      - "8000:8000"
     networks:
       - ecommerce-network
 
@@ -81,9 +87,11 @@ services:
   # API GATEWAY
   # ======================
   api-gateway:
-    build: ./api-gateway
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
     container_name: api-gateway
-    restart: always
+    restart: "always"
     ports:
       - "8080:8080"
     depends_on:
@@ -96,11 +104,13 @@ services:
   # FRONTEND
   # ======================
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: frontend
-    restart: always
+    restart: "always"
     ports:
-      - "5173:5173"
+      - "5173:80"
     depends_on:
       - api-gateway
     networks:

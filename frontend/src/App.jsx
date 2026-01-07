@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import axios from "./api/axios";
 
 import Home from "./pages/Home";
@@ -17,18 +17,12 @@ function App() {
     loading: true,
   });
 
-  // check auth on load
   useEffect(() => {
     const checkAuth = async () => {
       try {
         const res = await axios.get("/");
-
         if (res.data.status === "Success") {
-          setAuth({
-            isAuthenticated: true,
-            name: res.data.name,
-            loading: false,
-          });
+          setAuth({ isAuthenticated: true, name: res.data.name, loading: false });
         } else {
           setAuth({ isAuthenticated: false, name: "", loading: false });
         }
@@ -37,7 +31,6 @@ function App() {
         setAuth({ isAuthenticated: false, name: "", loading: false });
       }
     };
-
     checkAuth();
   }, []);
 
@@ -53,20 +46,18 @@ function App() {
 
   return (
     <AuthContext.Provider value={{ auth, setAuth, handleLogout }}>
-      <BrowserRouter>
-        <Routes>
-          {/* Product */}
-          <Route path="/" element={<Home />} />
-          <Route path="/products/:id" element={<ProductPage />} />
+      <Routes>
+        {/* Product */}
+        <Route path="/" element={<Home />} />
+        <Route path="/products/:id" element={<ProductPage />} />
 
-          {/* Auth */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+        {/* Auth */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-          {/* User */}
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </BrowserRouter>
+        {/* User */}
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
     </AuthContext.Provider>
   );
 }

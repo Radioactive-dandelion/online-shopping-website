@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(cors({
-  origin: ["http://localhost:5173"],
+  origin: true,
   methods: ["POST", "GET", "PUT"],
   credentials: true
 }));
@@ -114,7 +114,7 @@ const verifyUser = (req, res, next) => {
 app.get("/health", (req, res) => res.json({ status: "ok" }));
 
 /* ===== REGISTER ===== */
-app.post("/register", async (req, res) => {
+app.post("/auth/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password)
@@ -335,16 +335,3 @@ if (process.env.NODE_ENV !== "test") {
   app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 }
 
-function connectWithRetry() {
-  pool.getConnection((err, connection) => {
-    if (err) {
-      console.log("DB not ready, retrying in 3s...");
-      setTimeout(connectWithRetry, 3000);
-    } else {
-      console.log("✅ Connected to MySQL");
-      connection.release();
-    }
-  });
-}
-
-connectWithRetry();
